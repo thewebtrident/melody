@@ -3,6 +3,9 @@ $(document).ready(function() {
     var counterUp = $('.counter-up');
     var counterDown = $('.counter-down');
     var floorPath = $('.home-image path');
+    var modal = $(".modal");
+    var modalClose = $(".modal-close-button");
+    var viewFlatsButton = $(".view-flats");
 
     floorPath.on('mouseover', function() {
         currentFloor = $(this).attr('data-floor');
@@ -14,7 +17,11 @@ $(document).ready(function() {
         usCurrentFloor = currentFloor.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
         $('.counter').text(usCurrentFloor);
         $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor');
+        toggleModal();
     });
+
+    modalClose.on('click', toggleModal);
+    viewFlatsButton.on('click', toggleModal);
 
     counterUp.on('click', function() {
         if (currentFloor < 18) {
@@ -24,7 +31,7 @@ $(document).ready(function() {
             floorPath.removeClass('current-floor');
             $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor');
         }
-    })
+    });
 
     counterDown.on('click', function() {
         if (currentFloor > 02) {
@@ -34,5 +41,9 @@ $(document).ready(function() {
             floorPath.removeClass('current-floor');
             $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor');
         }
-    })
+    });
+
+    function toggleModal() {
+        modal.toggleClass('is-open');
+    }
 });
